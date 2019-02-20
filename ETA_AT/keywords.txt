@@ -1,0 +1,40 @@
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+ETA_AT	KEYWORD1
+SIM	KEYWORD1
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+powerOn	KEYWORD2
+powerOff	KEYWORD2
+Test	KEYWORD2
+callMake	KEYWORD2
+callAnswer	KEYWORD2
+callHangUp	KEYWORD2
+autoAnswerSettings	KEYWORD2
+SMSsend	KEYWORD2
+SMSread	KEYWORD2
+SMSnumberOfSender	KEYWORD2
+SMStext	KEYWORD2
+SMSlistAll	KEYWORD2
+SMSlistRead		KEYWORD2
+SMSlistUnread		KEYWORD2
+SMSnumber	KEYWORD2
+SMSdelete	KEYWORD2
+SMSformat	KEYWORD2
+switchToHeadphones	KEYWORD2
+switchToSpeakers	KEYWORD2
+getSignalQuality	KEYWORD2
+SIMgetID	KEYWORD2
+availableOperators	KEYWORD2
+currentOp	KEYWORD2
+updateSerial	KEYWORD2
+enableTextMode	KEYWORD2
+enablePDUMode	KEYWORD2
+begin	KEYWORD 2
+######################################
+# Constants (LITERAL1)
+#######################################
+P	LITERAL1
