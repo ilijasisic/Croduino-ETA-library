@@ -18,7 +18,7 @@ void setup() {
 
 
   SIM.enableTextMode(); //Enable text mode so we can write normally, PDU mode is set by default on startup
-
+  delay(100);
   message=SIM.SMSread(x); //Reads the message and stores it into a String
   
   Serial.println(message); //Prints the saved String onto the Serial Monitor
