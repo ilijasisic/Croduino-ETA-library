@@ -532,3 +532,144 @@ void ETA_AT::clearSerial() {
 		GSM.read();
 	}
 }
+// ============================================================
+////////////////////HTTP TESTING///////////////////////////////
+// ============================================================
+
+String ETA_AT::requestHTTP(const char *a, const char *b, const char *c, const char *d) //APN,SERVER,API,HOST
+{
+	char myChar;
+	String ioString = "";
+	vrijeme = millis();
+	while (GSM.available() || millis() < vrijeme + 5000) {
+		if (GSM.available() > 0) {
+			Serial.write(GSM.read());
+		}
+	}
+	Serial.println("HTTP REQUEST:");
+	GSM.println("AT+CGATT=1 "); //Attach the device to packet domain service
+								//updateSerial();
+	vrijeme = millis();
+	while (GSM.available() || millis() < vrijeme + 2000) {
+		if (GSM.available() > 0) {
+			Serial.write(GSM.read());
+		}
+	}
+	GSM.print("AT+CGDCONT=1,\"IP\",");//DEFINE PDP CONTEXT
+	for (int k = 0; k < strlen_P(a); k++) {
+		myChar = pgm_read_byte_near(a + k);
+		GSM.print(myChar);
+	}
+	GSM.println();
+	//GSM.println(a);//DEFINE PDP CONTEXT
+	while (GSM.available() || millis() < vrijeme + 1000) {
+		if (GSM.available() > 0) {
+			Serial.write(GSM.read());
+		}
+	}
+	GSM.println("AT+CIPSTATUS");//IP-status(It should return IP-INITIAL.)
+								//updateSerial();
+	vrijeme = millis();
+	while (GSM.available() || millis() < vrijeme + 1000) {
+		if (GSM.available() > 0) {
+			Serial.write(GSM.read());
+		}
+	}
+	GSM.print("AT+CSTT=\"");//APN set
+	for (int k = 0; k < strlen_P(a); k++) {
+		myChar = pgm_read_byte_near(a + k);
+		GSM.print(myChar);
+	}
+	//GSM.print(a);
+	GSM.println("\",\"\", \"\"");
+	//updateSerial();
+	vrijeme = millis();
+	while (GSM.available() || millis() < vrijeme + 1000) {
+		if (GSM.available() > 0) {
+			Serial.write(GSM.read());
+		}
+	}
+	GSM.println("AT+CIPSTATUS");//IP-status(It should return IP-START.)
+								//updateSerial();
+	vrijeme = millis();
+	while (GSM.available() || millis() < vrijeme + 1000) {
+		if (GSM.available() > 0) {
+			Serial.write(GSM.read());
+		}
+	}
+	GSM.println("AT+CIICR");// Wireless GPRS connection
+							//updateSerial();
+	vrijeme = millis();
+	while (GSM.available() || millis() < vrijeme + 1000) {
+		if (GSM.available() > 0) {
+			Serial.write(GSM.read());
+		}
+	}
+	GSM.println("AT+CIPSTATUS");//IP-status(It should return IP-GPRSACT.)
+	vrijeme = millis();
+	while (GSM.available() || millis() < vrijeme + 2000) {
+		if (GSM.available() > 0) {
+			Serial.write(GSM.read());
+		}
+	}
+	GSM.println("AT+CGACT=1,1");//Activate PDP; Internet connection is available after successful PDP activation
+								//updateSerial();
+	vrijeme = millis();
+	while (GSM.available() || millis() < vrijeme + 2000) {
+		if (GSM.available() > 0) {
+			Serial.write(GSM.read());
+		}
+	}
+	GSM.print("AT+CIPSTART=TCP,\"");// Connect to the server
+	for (int k = 0; k < strlen_P(b); k++) {
+		myChar = pgm_read_byte_near(b + k);
+		GSM.print(myChar);
+	}
+	//GSM.print(b);//
+	GSM.println("\",80");//
+
+	vrijeme = millis();
+	while (GSM.available() || millis() < vrijeme + 12000) {
+		if (GSM.available() > 0) {
+			Serial.write(GSM.read());
+		}
+	}
+	//updateSerial();
+	GSM.println("AT+CIFSR");//Get local IP address
+	delay(2000);
+	updateSerial();
+	GSM.println("AT+CIPSEND");// Send data request to the server
+	delay(2000);
+	updateSerial();
+	GSM.print("GET ");
+	//GSM.print(c);//
+	for (int k = 0; k < strlen_P(c); k++) {
+		myChar = pgm_read_byte_near(c + k);
+		GSM.print(myChar);
+	}
+	GSM.print(" HTTP/1.1\r\n HOST:");
+	///GSM.print(d);
+	for (int k = 0; k < strlen_P(d); k++) {
+		myChar = pgm_read_byte_near(d + k);
+		GSM.print(myChar);
+	}
+	GSM.println("\r\n\r\n");
+	while (GSM.available() || millis() < vrijeme + 2000) {
+		if (GSM.available() > 0) {
+			Serial.write(GSM.read());
+		}
+	}
+	GSM.write(26);// Terminator(Ctrl+Z)
+	updateSerial();
+	clearSerial();
+	delay(50);
+	//clearSerial();
+	vrijeme = millis();
+	while (GSM.available() || millis() < vrijeme + 5000) {
+		//updateSerial();
+		if (GSM.available() > 0) {
+			ioString = GSM.readString();
+		}
+	}
+	return ioString;
+}

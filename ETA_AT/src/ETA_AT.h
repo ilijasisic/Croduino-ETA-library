@@ -42,6 +42,7 @@ class ETA_AT
 	void enablePDUMode();
     void updateSerial();
 	void begin(unsigned long speed);
+	String requestHTTP(const char *a, const char *b, const char *c, const char *d);
   private:
     void clearBuffer();
     int checkRing(int i);
