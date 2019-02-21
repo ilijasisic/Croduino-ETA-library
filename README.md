@@ -6,12 +6,10 @@ In order to be able to use this library without any complications you'll have to
 On a Windows PC, go to C:\Program Files (x86) -> Arduino -> hardware -> Arduino -> avr -> libraries -> SoftwareSerial (-> src for newer version of Arduino IDE) Open SoftwareSerial.h and change the line:
 ```
 // RX buffer size
-
 #define _SS_MAX_RX_BUFF 64  
 ``` 
 into ->
 ```
-// RX buffer
-
+// RX buffer size
 #define _SS_MAX_RX_BUFF 128 
 ```
