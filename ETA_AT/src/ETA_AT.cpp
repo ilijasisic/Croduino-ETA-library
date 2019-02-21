@@ -1,6 +1,7 @@
 
 #include "Arduino.h"
 #include <SoftwareSerial.h>
+#include <avr/pgmspace.h>
 #include <ETA_AT.h>
 
 SoftwareSerial GSM(DEF_RX_PIN, DEF_TX_PIN);
