@@ -528,13 +528,14 @@ void ETA_AT::begin(unsigned long speed) {                       // Initializes S
 
 	GSM.begin(speed);                                        // Calls SoftwareSerial method "begin" either with default baudrate or user provided baudrate.
 }
+// ============================================================
 void ETA_AT::clearSerial() {
 	while (GSM.available() >0) {
 		GSM.read();
 	}
 }
 // ============================================================
-////////////////////HTTP TESTING///////////////////////////////
+////////////////////HTTP //////////////////////////////////////
 // ============================================================
 
 String ETA_AT::requestHTTP(const char *a, const char *b, const char *c, const char *d) //APN,SERVER,API,HOST
