@@ -1,44 +1,59 @@
-#ifndef ETA_A6_h
-#define ETA_A6_h
+#ifndef ETA_AT_h
+#define ETA_AT_h
 
 #define DEF_RX_PIN 2
 #define DEF_TX_PIN 3
 
+//#define DEBUG  //comment this line if you don't want anything on serial monitor
 
 #include "Arduino.h"
-//#include <ETA_A6.h>
 #include <SoftwareSerial.h>
+#include <avr/pgmspace.h>
 
-class ETA_A6
+
+
+class ETA_AT
 {
   public:
-    ETA_A6();
+	ETA_AT();
     void powerOn();
     void powerOff();
-    void connectCheck();
-    void networkRegister();
-    void infoGeneral();
-    void infoSIM();
-    void sendSMS(char *num, char *msg);
-    void listSMS();
-    void readSMS(char *numb);
-    void readAllSMS(int numb);
-    void deleteSMS(char *n);
-    void formatSMS();
-    void makeCall(char *nm);
-    void endCall();
+	void infoGeneral();
+    void Test();
+    void callMake(char *addr);
+    void callAnswer();
+    void callHangUp();
+    void autoAnswerSettings(int x, int y);
+    void SMSsend(char *addr, char *msg);
+    String SMSread(int x);
+    String SMSnumberOfSender(String x);
+    String SMStext(String x);
+    void SMSlistAll();
+    void SMSlistRead();
+    void SMSlistUnread();
+    int SMSnumber();
+    String SMSdelete(int x);
+    void SMSformat();
+    void switchToHeadphones();
+    void switchToSpeakers();
+    int getSignalQuality();
+    String SIMgetID();
+    String availableOperators();
+    String currentOp();
+	void enableTextMode();
+	void enablePDUMode();
     void updateSerial();
-    void begin(unsigned long speed);
+	void begin(unsigned long speed);
 	String requestHTTP(const char *a, const char *b, const char *c, const char *d);
-    void closeHttp();
-	
-	
+	void closeHttp();
   private:
     void clearBuffer();
-	char buff[250];
+    int checkRing(int i);
+    int numOfMsg(int i);
+    int errorCheck(String x);
+	char ioBuffer[150];
 	unsigned long vrijeme;
 	void clearSerial();
 	
-
-};
+}; 
 #endif
