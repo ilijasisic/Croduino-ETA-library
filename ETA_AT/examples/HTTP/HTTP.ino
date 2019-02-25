@@ -1,5 +1,5 @@
 //This example shows how to make HTTP request
-//HTTPS you can use are (GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS, CONNECT, PATCH)
+//HTTP methods you can use are (GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS, CONNECT, PATCH)
 //In this example we will use GET metod
 #include <ETA_AT.h>
 
