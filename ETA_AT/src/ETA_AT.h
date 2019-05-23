@@ -18,6 +18,7 @@ class ETA_AT
 	ETA_AT();
     void powerOn();
     void powerOff();
+	void infoGeneral();
     void Test();
     void callMake(char *addr);
     void callAnswer();
@@ -44,6 +45,7 @@ class ETA_AT
     void updateSerial();
 	void begin(unsigned long speed);
 	String requestHTTP(const char *a, const char *b, const char *c, const char *d);
+	void closeHttp();
   private:
     void clearBuffer();
     int checkRing(int i);
